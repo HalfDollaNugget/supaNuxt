@@ -1,0 +1,12 @@
+{
+    "editor.inlineSuggest.enabled": true,
+    "editor.tabSize": 2,
+    "tailwindCSS.emmetCompletions": true,
+    "tailwindCSS.includeLanguages": {
+        "vue": "html",
+        "vue-html": "html"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+}

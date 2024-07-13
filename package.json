@@ -10,6 +10,11 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "nuxt": "^3.12.3"
+  },
+  "devDependencies": {
+    "@nuxtjs/supabase": "^1.3.4",
+    "@nuxtjs/tailwindcss": "^6.12.1"
   }
 }
