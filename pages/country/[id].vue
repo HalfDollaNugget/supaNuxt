@@ -1,5 +1,6 @@
 <template>
-  <div class="flex flex-1 bg-stone-900 text-slate-50 justify-center items-center">
+  <div class="flex flex-1 flex-col gap-2 bg-stone-900 text-slate-50 justify-center items-center">
+    <p class="font-black text-5xl p-2">{{ country.local_name }}</p>
     <pre v-if="Object.keys(country)" class="flex flex-none p-4 rounded-lg ring-1 ring-stone-600/50 text-sm">{{ country }}</pre>
   </div>
 </template>
