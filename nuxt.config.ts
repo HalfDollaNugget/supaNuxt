@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     path: '~/components',
     pathPrefix: false
   }],
+  ssr: false,
   runtimeConfig: {
     public: {
       baseUrl: process.env.BASE_URL || 'localhost:3000'
@@ -23,9 +24,13 @@ export default defineNuxtConfig({
       exclude: ['/', '/country/*']
     }
   },
+  tailwindcss: {
+    configPath: 'tailwind.config',
+  },
   modules: [
     '@nuxtjs/supabase',
     '@pinia/nuxt',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@vueuse/nuxt'
   ]
 })

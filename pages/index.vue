@@ -35,6 +35,8 @@ export interface ICountries {
   iso3: string
   local_name: string | null
   continent: string | null
+  warflag: string | null
+  jpnname: string | null
 }
 </script>
 
