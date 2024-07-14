@@ -4,10 +4,14 @@
       <p class="font-semibold text-xl flex flex-none w-full p-2 justify-center items-center">{{ `Countries [${countries.length}]` }}</p>
       <div class="flex flex-1 flex-col divide-y divide-stone-500/50 overflow-y-auto">
         <template v-for="country in countries">
-          <div v-if="!['', null, undefined].includes(country.local_name)" class="flex flex-none w-full flex-row gap-1 text-sm p-2">
+          <NuxtLink :to="`/country/${country.id}`" v-if="!['', null, undefined].includes(country.local_name)" class="flex flex-none w-full flex-row gap-1 text-sm p-2">
             <p class="font-semibold">{{ country.local_name }}</p>
             <span class="opacity-50">{{ `[${country.iso3}]` }}</span>
-          </div>
+          </NuxtLink>
+          <!-- <div v-if="!['', null, undefined].includes(country.local_name)" class="flex flex-none w-full flex-row gap-1 text-sm p-2">
+            <p class="font-semibold">{{ country.local_name }}</p>
+            <span class="opacity-50">{{ `[${country.iso3}]` }}</span>
+          </div> -->
         </template>
       </div>
     </div>

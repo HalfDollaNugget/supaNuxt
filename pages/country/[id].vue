@@ -19,12 +19,12 @@
         </div>
       </div>
       <div class="flex flex-row flex-none w-full gap-2">
-        <div @click="getCountry(route.params.id - 1)" class="flex flex-1 rounded-lg ring-1 ring-stone-600/50 text-sm py-2 justify-center cursor-pointer">
+        <div @click="getCountry(Number(route.params.id) - 1)" class="flex flex-1 rounded-lg ring-1 ring-stone-600/50 text-sm py-2 justify-center cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
             <path fill-rule="evenodd" d="M18 10a.75.75 0 0 1-.75.75H4.66l2.1 1.95a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 1 1 1.02 1.1l-2.1 1.95h12.59A.75.75 0 0 1 18 10Z" clip-rule="evenodd" />
           </svg>
         </div>
-        <div @click="getCountry(route.params.id + 1)" class="flex flex-1 rounded-lg ring-1 ring-stone-600/50 text-sm py-2 justify-center cursor-pointer">
+        <div @click="getCountry(Number(route.params.id) + 1)" class="flex flex-1 rounded-lg ring-1 ring-stone-600/50 text-sm py-2 justify-center cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
             <path fill-rule="evenodd" d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z" clip-rule="evenodd" />
           </svg>
@@ -34,14 +34,23 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { ICountries } from '@/pages/index'
+import type { ICountries } from '~/pages/index.vue'
 
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
 const route = useRoute()
 const router = useRouter()
-const country = ref<ICountries>({})
+const country = ref<ICountries>({
+  id: 0,
+  name: '',
+  iso2: '',
+  iso3: '',
+  local_name: null,
+  continent: null,
+  warflag: null,
+  jpnname: null
+})
 const extendedInfo = ref({})
 const countryWarflag = ref('')
 const jpnName = ref('')
@@ -69,7 +78,7 @@ const getCountry = async (id: number) => {
   if (id == 0) return
   let { data, error } = await supabase.from('countries').select().eq('id', id).maybeSingle()
   if (error) return
-  let jpn = await getJPY(data.iso2)
+  let jpn: any = await getJPY(data.iso2)
   delete data.id
   let info = jpn[0]
   extendedInfo.value = {
@@ -85,7 +94,7 @@ const getCountry = async (id: number) => {
       id
     }
   })
-  const tempUpdate = {}
+  const tempUpdate: Partial<ICountries> = {}
   if (data.warflag == null) tempUpdate.warflag = info.coatOfArms.png
   if (data.jpnname == null) tempUpdate.jpnname = info?.translations?.jpn?.official
   if (Object.keys(tempUpdate).length) {
@@ -99,6 +108,15 @@ const getJPY = async (iso: string) => {
 }
 
 onMounted(async () => {
-  await getCountry(route.params.id)
+  await getCountry(Number(route.params.id))
 })
-</script>
+</script>{
+  id: 0,
+  name: '',
+  iso2: '',
+  iso3: '',
+  local_name: null,
+  continent: null,
+  warflag: null,
+  jpnname: null
+}
